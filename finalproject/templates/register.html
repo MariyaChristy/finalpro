@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <style>
+        body{
+            text-align: center;
+            margin-top: 50px;
+            background-image: url('https://images.pexels.com/photos/3991970/pexels-photo-3991970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+
+        }
+        input{
+            padding: 5px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<form action="register" method="post">
+    {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+
+{% for msg in messages %}
+<h2>{{msg}}</h2>
+{% endfor %}
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div>
+    <p class="text-center my_search_text"> You Have Searched For : <b>"{{search_query}}"</b> </p>
+</div>
+
+    {% if movies %}
+  <div class="row">
+ {% for movie in category_list %}
+    <a href="{% url  'Movie_App:detail_category' i.id %}" class="btn btn-info">{{movie.name}}</a>
+{%endfor%}
+            {% for movie in movies %}
+      <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{movie.image.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Title:{{movie.title}}</h5>
+        <p class="card-text">Description:{{movie.description}}</p>
+        <p class="card-text"><small class="text-body-secondary">category:{{movie.category}}</small></p>
+          <p class="card-text">actors are:{{movie.actors}}</p>
+          <h5>youtube trailer link:{{movie.youtube_trailer_link}}</h5>
+          <h5>movie poster link{{movie.poster}}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <br> {% endfor %}<br>
+
+    {% else %}
+        <p>No movies found.</p>
+    {% endif %}
+
+{% endblock %}

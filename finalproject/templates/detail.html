@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{movie.image.url}}"width="400" height="400">
+        </div>
+    <div class="col-md-6">
+        <h5>Movie Title:{{movie.title}}</h5>
+        <p>Movie Description:{{movie.description}}</p>
+          <p>Movie Actors:{{movie.actors}}</p>
+        <p>category: {{movie.category.name}}</p>
+         <h5 class="card-link">Youtube_link:{{movie.youtube_trailer_link}}</h5>
+          {% if user.is_authenticated %}
+        <a class="btn btn-danger" href="{% url 'Movie_App:add_comment' movie.id %}">Add a Comment</a>
+        {% endif %}
+    {% if user.is_authenticated and user == movie.user %}
+        <a class="btn btn-danger" href="{% url 'Movie_App:update' movie.id %}">Update</a>
+        <a class="btn btn-danger" href="{% url 'Movie_App:delete' movie.id %}">Delete</a>
+    {% endif %}
+
+
+        {% if user.is_authenticated %}
+            <h2>Comments:</h2>
+                {% for comment in movie.comments.all %}
+                <p>{{ comment.comment }} - {{ comment.user.username }}
+
+                <a href="{% url 'Movie_App:delete_comment' comment.id %}">Delete</a>
+                </p>
+              {% endfor %}
+        {% endif %}
+         {% if user.is_authenticated %}
+        <form method="post" action="{% url 'Movie_App:favorite_move' movie.id %}">
+            {% csrf_token %}
+            <button type="submit">Add to Favorites and comment</button>
+        </form>
+        {% else %}
+        <p>Please login for add favorite and comment</p>
+        {% endif %}
+
+    </div>
+    </div>
+</div>
+{% endblock %}
+

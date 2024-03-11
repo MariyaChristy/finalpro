@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block body %}
+<a href="{% url 'Movie_App:index' %}" class="btn btn-info">All Movies</a><br>
+
+<div class="container mt-5">
+    <div class="row">
+        {% for i in category_list %}
+        <br><div class="card mb-3" style="max-width: 500px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+
+    <div class="col-md-8">
+      <div class="card-body">
+          <a href="{% url  'Movie_App:detail_category' i.id %}" class="btn btn-info">{{i.name}}</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+        {%  endfor %}
+
+
+</div>
+</div>
+
+{% endblock %}

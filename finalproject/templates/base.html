@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my index page</title>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Online Movie Store</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          {% if user.is_authenticated %}
+          <a  href="{% url 'Movie_App:add_movie' %}" class="btn btn-primary">Add Movie</a>
+          {% endif %}
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'Movie_App:category_list' %}">All Categories</a></li>
+          </ul>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'Movie_App:index' %}">Home</a>
+
+        <li class="nav-item">
+        {% if user.is_authenticated %}
+          <a  href="{% url 'profile_app:profile' %}" class="btn btn-primary">view Profile</a>
+        {% endif %}
+        </li>
+        <br>
+        <br>
+
+        <br></li>{% if user.is_authenticated %}
+        <br><li> Hello {{user.username}} Welcome</li>
+
+        <a href="{% url 'credentials_app:logout' %}" class="nav-item nav-link">logout</a>
+        {% else %}
+        <a href="{% url 'credentials_app:register' %}" class="nav-item nav-link">Register</a>
+        <a href="{% url 'credentials_app:login' %}" class="nav-item nav-link">login</a>
+        {% endif%}<br>
+
+      </ul>
+
+       <form class="d-flex" action="{% url 'search_app:searchResult' %}" method="get">
+                {% csrf_token %}
+         <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+         <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i> </button>
+       </form>
+
+    </div><br>{% if user.is_authenticated %}
+  <a href="{% url 'Movie_App:favourite_list' %}" class="nav-item nav-link">Your favourite Movies</a>
+    {% endif%}<br>
+
+  </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>

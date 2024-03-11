@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<h1>My Favorites</h1>
+
+{% if favorites %}
+    <ul>
+        {% for favourite in favorites %}
+            <li>{{ favourite.movie.title }} -
+                 <div class="col-md-6">
+            <img src="{{favourite.movie.image.url}}"width="400" height="400">
+        </div>
+    <div class="col-md-6">
+        <h5>Movie Title:{{favourite.movie.title}}</h5>
+        <p>Movie Description:{{favourite.movie.description}}</p>
+          <p>Movie Actors:{{favourite.movie.actors}}</p>
+        <p>category: {{favourite.movie.category.name}}</p>
+         <h5 class="card-link">Youtube_link:{{favourite.movie.youtube_trailer_link}}</h5>
+        <a class="btn btn-danger" href="{% url 'Movie_App:remove_favourite' favourite.id %}">Remove from favourite</a>
+    </div>
+        {% endfor %}
+{% else %}
+    <p>No favorite movies yet.</p>
+{% endif %}
+
+{% endblock %}

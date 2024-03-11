@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login page</title>
+    <style>
+     body{
+            text-align: center;
+
+            margin-top: 50px;
+            color: pink;
+            background-image: url('https://images.pexels.com/photos/3991970/pexels-photo-3991970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+
+        }
+        input{
+            padding: 5px;
+        }
+     </style>
+</head>
+<body>
+<h2 style=" text-align: center;">Login here</h2>
+<form style="text-align:center;" action="login" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username"><br>
+    <br><input type="password" name="password" placeholder="Enter password"><br>
+    <br><input type="submit">
+
+</form>
+{% for msg in messages %}
+<h2>{{msg}}</h2>
+{% endfor %}
+</body>
+</html>
